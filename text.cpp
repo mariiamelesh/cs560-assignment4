@@ -5,6 +5,9 @@
 #include "Line.h"
 
 class Text {
-    Line* lines;
-	
+    std::vector<std::unique_ptr<Line>> lines;
+public:
+    void addLine(Line line) { 
+		lines.push_back(std::move(line)); 
+	}
 }
