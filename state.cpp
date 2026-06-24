@@ -3,10 +3,9 @@
 #include <string>
 
 class Cursor {
-public:
-    int currentLine = 0;
+	int currentLine = 0;
     int currentIndex = 0;
-	
+public:
 	void left() { 
 		if (currentIndex > 0) {
 			currentIndex--; 
