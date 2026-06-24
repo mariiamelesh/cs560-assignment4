@@ -41,5 +41,25 @@ public:
 };
 
 class History {
-   
+    std::vector<Copy> copies;
+public:
+    void addCopy(Copy c) {
+    }
+
+    bool popCopy(std::vector<std::string>& lines, Cursor& c) {
+        if (copies.empty()) {
+			return false;
+		}
+        Copy last = copies.back();
+        copies.pop_back();
+        
+        lines = last.serializedLines;
+        c.currentLine = last.cursorLine;
+        c.currentIndex = last.cursorIndex;
+        return true;
+    }
+    
+    void clear() { 
+		copies.clear(); 
+	}
 };
