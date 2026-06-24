@@ -29,6 +29,15 @@ public:
 };
 
 class Copy {
+public:
+    std::vector<std::string> serializedLines;
+    int cursorLine;
+    int cursorIndex;
+	Copy(const std::vector<std::string>& lines, const Cursor& c) {
+		serializedLines = lines;
+		cursorLine = c.currentLine;
+		cursorIndex = c.currentIndex;
+	}
 };
 
 class History {
