@@ -1,4 +1,3 @@
-#pragma once
 #include <iostream>
 #include <string>
 
@@ -13,7 +12,7 @@ class Text : public Line {
 private:
     std::string text;
 public:
-	TextLine(const std::string& t) {
+	Text(const std::string& t) {
 		text =t;
 	}
 
@@ -38,7 +37,7 @@ private:
 	bool checked;
 public:
 	Checklist(const std::string& i, bool c) {
-		item = i;
+		task = i;
 		checked = c;
 	}
 
@@ -47,7 +46,7 @@ public:
     }
 
 	std::string serialize() const override { 
-		return "checklist:" + checked ? "1 ," : "0 ," + task; 
+		return "checklist:" + (checked ? "1 ," : "0 ,") + task; 
 	}
 };
 
