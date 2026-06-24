@@ -16,8 +16,19 @@ public:
 };
 
 class Copy {
+public:
+    std::vector<std::string> serializedLines;
+    int cursorLine;
+    int cursorIndex;
+
+    Copy(const std::vector<std::string>& lines, const Cursor& c);
 };
 
 class History {
-   
+private:
+    std::vector<EditorSnapshot> copies;
+public:
+    void addCopy(Copy c);
+    bool popCopy(std::vector<std::string>& lines, Cursor& c);
+    void clear();
 };

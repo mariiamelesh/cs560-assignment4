@@ -44,6 +44,10 @@ class History {
     std::vector<Copy> copies;
 public:
     void addCopy(Copy c) {
+		if (copies.size() >= 5) {
+            copies.erase(copies.begin());
+        }
+        copies.push_back(c);
     }
 
     bool popCopy(std::vector<std::string>& lines, Cursor& c) {
