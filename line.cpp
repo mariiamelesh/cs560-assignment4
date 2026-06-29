@@ -1,70 +1,40 @@
+#include "line.h"
 #include <iostream>
-#include <string>
 
-class Line {
-public:
-    virtual ~Line() = default;
-	virtual void print(bool hasCursor, int cursorIndex) const = 0;
-	virtual std::string serialize() const = 0;
-};
+Text::Text(const std::string& t) : text(t) {}
 
-class Text : public Line {
-private:
-    std::string text;
-public:
-	Text(const std::string& t) {
-		text =t;
-	}
-
-	void print(bool hasCursor, int cursorIndex) const override {
-		std::cout << "Text: ";
-        for (size_t i = 0; i < text.length(); ++i) {
-            if (hasCursor && (int)i == cursorIndex) {
-				std::cout << "[" << text[i] << "]";
-			} else {
-				std::cout << text[i];
-			}
+void Text::print(bool hasCursor, int cursorIndex) const {
+    std::cout << "text: ";
+    for (size_t i = 0; i < text.length(); ++i) {
+        if (hasCursor && (int)i == cursorIndex) {
+            std::cout << "[" << text[i] << "]";
+        } else {
+            std::cout << text[i];
         }
-	}
-	std::string serialize() const override { 
-		return "text:" + text; 
-	}
-};
- 
-class Checklist : public Line {
-private:
-    std::string task;
-	bool checked;
-public:
-	Checklist(const std::string& i, bool c) {
-		task = i;
-		checked = c;
-	}
-
-	void print(bool hasCursor, int cursorIndex) const override {
-        std::cout << "[ " << (checked ? "x" : " ") << " ] " << item << std::endl;
     }
+    std::cout << std::endl;
+}
 
-	std::string serialize() const override { 
-		return "checklist:" + (checked ? "1 ," : "0 ,") + task; 
-	}
-};
+std::string Text::serialize() const { 
+    return "text:" + text; 
+}
 
-class Contact : public Line {
-private:
-    std::string name;
-    std::string email;
-public:
-	Contact(const std::string& n, const std::string& em) {
-		name = n;
-		email = em;
-	}
+Checklist::Checklist(const std::string& i, bool c) : task(i), checked(c) {}
 
-    void print(bool hasCursor, int cursorIndex) const override {
-        std::cout << "Contact - " << name << ", E-mail: " << email << std::endl;
-    }
+void Checklist::print(bool hasCursor, int cursorIndex) const {
+    std::cout << "[ " << (checked ? "x" : " ") << " ] " << task << std::endl;
+}
 
-	std::string serialize() const override { 
-		return "contact:" + name + "," + email;
-	}
-};
+std::string Checklist::serialize() const { 
+    return "checklist:" + std::string(checked ? "1," : "0,") + task; 
+}
+
+Contact::Contact(const std::string& n, const std::string& em) : name(n), email(em) {}
+
+void Contact::print(bool hasCursor, int cursorIndex) const {
+    std::cout << "contact - " << name << ", email: " << email << std::endl;
+}
+
+std::string Contact::serialize() const { 
+    return "contact:" + name + "," + email;
+}

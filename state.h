@@ -3,12 +3,10 @@
 #include <string>
 
 class Cursor {
-private:
-    int currentLine;
-    int currentIndex;
 public:
-    Cursor();
-    
+    int currentLine = 0;
+    int currentIndex = 0;
+
     void up();
     void down(int totalLines);
     void left();
@@ -26,7 +24,7 @@ public:
 
 class History {
 private:
-    std::vector<EditorSnapshot> copies;
+    std::vector<Copy> copies;
 public:
     void addCopy(Copy c);
     bool popCopy(std::vector<std::string>& lines, Cursor& c);
