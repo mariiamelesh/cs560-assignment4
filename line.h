@@ -8,24 +8,30 @@ public:
     virtual std::string serialize() const = 0;
 };
 
-class Text : public Line {
+class TextLine : public Line {
 private:
     std::string text;
 public:
-    Text(const std::string& t);
+    TextLine(const std::string& t);
     void print(bool hasCursor, int cursorIndex) const override;
     std::string serialize() const override;
-    std::string getText() const { return text; }
+    std::string getText() const { 
+		return text; 
+	}
+    void setText(const std::string& newText) { 
+		text = newText; 
+	}
 };
 
 class Checklist : public Line {
 private:
     std::string task;
-    bool checked;
+	bool checked;
 public:
-    Checklist(const std::string& t, bool c);
+    Checklist(const std::string& t, bool checked = false);
     void print(bool hasCursor, int cursorIndex) const override;
     std::string serialize() const override;
+    void toggle();
 };
 
 class Contact : public Line {
